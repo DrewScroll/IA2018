@@ -10,13 +10,15 @@ public:
   ~CEstado();
 
   virtual void onEnter() = 0;
-  virtual void onUpdate() = 0;
+  virtual void onUpdate(sf::Event* _event) = 0;
   virtual void onExit() = 0;
-  virtual void drawScreen(sf::RenderWindow* _window) = 0;
+  virtual void drawScreen() = 0;
+  void SetFont();
   void SetMachine(CMaquinaEstados* pStateMachine, sf::RenderWindow* _window);
 
+  sf::Text myText;
+  sf::Font myFont;
   CMaquinaEstados* m_pStateMachine;
   sf::RenderWindow* m_pWindow;
-  sf::Event* m_Event;
 };
 
