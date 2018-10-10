@@ -2,33 +2,36 @@
 #include "CEstado_Opciones.h"
 
 
-CEstado_Opciones::CEstado_Opciones() {}
+CEstado_Opciones::CEstado_Opciones() {
+  myText.setString("Options Menu/nSelect one of the following options/n 1 = Gameplay/n 2 = Graphics/n 3 = Sound");
+
+  //drawScreen();
+}
 
 
 CEstado_Opciones::~CEstado_Opciones() {}
 
 void CEstado_Opciones::onEnter() {}
 
-void CEstado_Opciones::onUpdate() {
-  drawScreen(m_pWindow);
-  if (m_Event->KeyPressed == sf::Keyboard::Num1 || m_Event->KeyPressed == sf::Keyboard::Numpad1) {
-    m_pStateMachine->PushState(STATE_GAMEPLAY);
+void CEstado_Opciones::onUpdate(sf::Event* _event) {
+  if (_event->KeyPressed == sf::Keyboard::Num1 || _event->KeyPressed == sf::Keyboard::Numpad1) {
+    m_pStateMachine->AddState(STATE_GAMEPLAY);
   }
-  else if (m_Event->KeyPressed == sf::Keyboard::Num2 || m_Event->KeyPressed == sf::Keyboard::Numpad2) {
-    m_pStateMachine->PushState(STATE_GRAPHICS);
+  else if (_event->KeyPressed == sf::Keyboard::Num2 || _event->KeyPressed == sf::Keyboard::Numpad2) {
+    m_pStateMachine->AddState(STATE_GRAPHICS);
   }
-  else if (m_Event->KeyPressed == sf::Keyboard::Num3 || m_Event->KeyPressed == sf::Keyboard::Numpad3) {
-    m_pStateMachine->PushState(STATE_SOUND);
+  else if (_event->KeyPressed == sf::Keyboard::Num3 || _event->KeyPressed == sf::Keyboard::Numpad3) {
+    m_pStateMachine->AddState(STATE_SOUND);
   }
-  else if (m_Event->KeyPressed == sf::Keyboard::Escape) {
-    m_pStateMachine->PopState();
+  else if (_event->KeyPressed == sf::Keyboard::Escape) {
+    m_pStateMachine->RemoveState();
   }
 }
 
 void CEstado_Opciones::onExit() {}
 
-void CEstado_Opciones::drawScreen(sf::RenderWindow* _window) {
-  sf::Text myText;
+void CEstado_Opciones::drawScreen() {
+  /*sf::Text myText;
   sf::Font myFont;
   if (!myFont.loadFromFile("arial.ttf")) {
     printf("File not found");
@@ -38,5 +41,6 @@ void CEstado_Opciones::drawScreen(sf::RenderWindow* _window) {
     myText.setString("Options Menu/nSelect one of the following options/n 1 = Gameplay/n 2 = Graphics/n 3 = Sound");
     myText.setCharacterSize(24);
     myText.setFillColor(sf::Color::Black);
-  }
+  }*/
+  m_pWindow->draw(myText);
 }

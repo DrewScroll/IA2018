@@ -2,27 +2,30 @@
 #include "CEstado_Pausa.h"
 
 
-CEstado_Pausa::CEstado_Pausa() {}
+CEstado_Pausa::CEstado_Pausa() {
+  myText.setString("Pause Menu/n For options, press 1/n To leave, press ESC");
+
+  //drawScreen();
+}
 
 
 CEstado_Pausa::~CEstado_Pausa() {}
 
 void CEstado_Pausa::onEnter() {}
 
-void CEstado_Pausa::onUpdate() {
-  drawScreen(m_pWindow);
-  if (m_Event->KeyPressed == sf::Keyboard::Num1 || m_Event->KeyPressed == sf::Keyboard::Numpad1) {
-    m_pStateMachine->PushState(STATE_OPTIONS);
+void CEstado_Pausa::onUpdate(sf::Event* _event) {
+  if (_event->KeyPressed == sf::Keyboard::Num1 || _event->KeyPressed == sf::Keyboard::Numpad1) {
+    m_pStateMachine->AddState(STATE_OPTIONS);
   }
-  else if (m_Event->KeyPressed == sf::Keyboard::Escape) {
-    m_pStateMachine->PopState();
+  else if (_event->KeyPressed == sf::Keyboard::Escape) {
+    m_pStateMachine->RemoveState();
   }
 }
 
 void CEstado_Pausa::onExit() {}
 
-void CEstado_Pausa::drawScreen(sf::RenderWindow* _window){
-  sf::Text myText;
+void CEstado_Pausa::drawScreen(){
+  /*sf::Text myText;
   sf::Font myFont;
   if (!myFont.loadFromFile("arial.ttf")) {
     printf("File not found");
@@ -32,5 +35,6 @@ void CEstado_Pausa::drawScreen(sf::RenderWindow* _window){
     myText.setString("Pause Menu/n For options, press 1/n To leave, press ESC");
     myText.setCharacterSize(24);
     myText.setFillColor(sf::Color::Black);
-  }
+  }*/
+  m_pWindow->draw(myText);
 }

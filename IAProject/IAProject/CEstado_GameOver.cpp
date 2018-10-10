@@ -2,21 +2,23 @@
 #include "CEstado_GameOver.h"
 
 
-CEstado_GameOver::CEstado_GameOver() {}
+CEstado_GameOver::CEstado_GameOver() {
+  myText.setString("GAME OVER/n To start again, press Enter/n To leave, press ESC");
+  //drawScreen();
+}
 
 
 CEstado_GameOver::~CEstado_GameOver() {}
 
 void CEstado_GameOver::onEnter() {}
 
-void CEstado_GameOver::onUpdate() {
-  drawScreen(m_pWindow);
-  if (m_Event->KeyPressed == sf::Keyboard::Enter) {
-    m_pStateMachine->PopState();
+void CEstado_GameOver::onUpdate(sf::Event* _event) {
+  if (_event->KeyPressed == sf::Keyboard::Enter) {
+    m_pStateMachine->RemoveState();
   }
-  else if (m_Event->KeyPressed == sf::Keyboard::Escape) {
-    while (!m_pStateMachine->currentState.empty()) {
-      m_pStateMachine->PopState();
+  else if (_event->KeyPressed == sf::Keyboard::Escape) {
+    while (!m_pStateMachine->m_stateStack.empty()) {
+      m_pStateMachine->RemoveState();
     }
     m_pStateMachine->SetState(STATE_MENU);
   }
@@ -24,8 +26,8 @@ void CEstado_GameOver::onUpdate() {
 
 void CEstado_GameOver::onExit() {}
 
-void CEstado_GameOver::drawScreen(sf::RenderWindow* _window) {
-  sf::Text myText;
+void CEstado_GameOver::drawScreen() {
+ /* sf::Text myText;
   sf::Font myFont;
   if (!myFont.loadFromFile("arial.ttf")) {
     printf("File not found");
@@ -35,5 +37,6 @@ void CEstado_GameOver::drawScreen(sf::RenderWindow* _window) {
     myText.setString("GAME OVER/n To start again, press Enter/n To leave, press ESC");
     myText.setCharacterSize(24);
     myText.setFillColor(sf::Color::Black);
-  }
+  }*/
+  m_pWindow->draw(myText);
 }

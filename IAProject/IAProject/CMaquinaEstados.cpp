@@ -13,55 +13,68 @@
 #include "CEstado_Sonido.h"
 
 CMaquinaEstados::CMaquinaEstados() {
-  m_StateMap[STATE_UNDEFINED] = nullptr;
-  m_StateMap[STATE_HELP] = new CEstado_Ayuda();
-  m_StateMap[STATE_GAMEOVER] = new CEstado_GameOver();
-  m_StateMap[STATE_GAMEPLAY] = new CEstado_Gameplay();
-  m_StateMap[STATE_GRAPHICS] = new CEstado_Graphics();
-  m_StateMap[STATE_GAME] = new CEstado_Juego();
-  m_StateMap[STATE_LOGO] = new CEstado_Logo();
-  m_StateMap[STATE_MENU] = new CEstado_Menu();
-  m_StateMap[STATE_OPTIONS] = new CEstado_Opciones();
-  m_StateMap[STATE_PAUSE] = new CEstado_Pausa();
-  m_StateMap[STATE_SOUND] = new CEstado_Sonido();
+  m_stateMap[STATE_UNDEFINED] = nullptr;
+  m_stateMap[STATE_HELP] = new CEstado_Ayuda();
+  m_stateMap[STATE_GAMEOVER] = new CEstado_GameOver();
+  m_stateMap[STATE_GAMEPLAY] = new CEstado_Gameplay();
+  m_stateMap[STATE_GRAPHICS] = new CEstado_Graphics();
+  m_stateMap[STATE_GAME] = new CEstado_Juego();
+  m_stateMap[STATE_LOGO] = new CEstado_Logo();
+  m_stateMap[STATE_MENU] = new CEstado_Menu();
+  m_stateMap[STATE_OPTIONS] = new CEstado_Opciones();
+  m_stateMap[STATE_PAUSE] = new CEstado_Pausa();
+  m_stateMap[STATE_SOUND] = new CEstado_Sonido();
 }
 
 CMaquinaEstados::~CMaquinaEstados() {
-  while (!currentState.empty()) {
-    currentState.pop();
+  while (!m_stateStack.empty()) {
+    m_stateStack.pop();
   }
 
-  for (auto state : m_StateMap) {
+  for (auto state : m_stateMap) {
     if (nullptr != state.second) {
       delete state.second;
     }
   }
-  m_StateMap.clear();
+  m_stateMap.clear();
 }
 
 void CMaquinaEstados::Init(sf::RenderWindow* _window) {
   m_pMWindow = _window;
-  currentState.push(m_StateMap[STATE_LOGO]);
-  currentState.top()->SetMachine(this, m_pMWindow);
+  for (auto it : m_stateMap) {
+    it.second->SetMachine(this, m_pMWindow);
+  }
+  m_pActiveState = m_stateMap[STATE_LOGO];
+  //m_pTempState = NULL;
+  //m_stateStack.push(m_stateMap[STATE_LOGO]);
 }
 
 void CMaquinaEstados::Update(sf::Event* _event) {
-  currentState.top()->m_Event = _event;
-  currentState.top()->onUpdate();
+  m_pActiveState->onUpdate(_event);
+}
+
+void CMaquinaEstados::Render() {
+  m_pActiveState->drawScreen();
 }
 
 void CMaquinaEstados::SetState(STATES newState) {
-  PopState();
-  PushState(newState);
+  /*RemoveState();
+  AddState(newState);*/
+  m_pActiveState = m_stateMap[newState];
 }
 
-void CMaquinaEstados::PushState(STATES newState) {
-  currentState.push(m_StateMap[newState]);
-  currentState.top()->SetMachine(this, m_pMWindow);
-  currentState.top()->onEnter();
+void CMaquinaEstados::AddState(STATES newState) {
+  m_stateStack.push(m_pActiveState);
+  m_pActiveState = m_stateMap[newState];
+  m_pActiveState->SetMachine(this, m_pMWindow);
+  m_pActiveState->onEnter();
+  /*m_stateStack.push(m_stateMap[newState]);
+  m_pActiveState = m_stateStack.top();*/
 }
 
-void CMaquinaEstados::PopState() {
-  currentState.top()->onExit();
-  currentState.pop();
+void CMaquinaEstados::RemoveState() {
+  m_pActiveState->onExit();
+  m_pActiveState = m_stateStack.top();
+  m_stateStack.pop();
+ /*m_pActiveState = nullptr;*/
 }

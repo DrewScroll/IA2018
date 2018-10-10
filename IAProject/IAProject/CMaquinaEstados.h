@@ -26,14 +26,17 @@ public:
   CMaquinaEstados();
   ~CMaquinaEstados();
 
-  std::map <STATES, CEstado*> m_StateMap;
-  std::stack <CEstado*> currentState;
+  std::map <STATES, CEstado*> m_stateMap;
+  std::stack <CEstado*> m_stateStack;
   sf::RenderWindow* m_pMWindow;
+  CEstado* m_pActiveState;
+  //CEstado* m_pTempState;
   
   void Init(sf::RenderWindow* _window);
   void Update(sf::Event* _event);
+  void Render();
   void SetState(STATES newState);
-  void PushState(STATES newState);
-  void PopState();
+  void AddState(STATES newState);
+  void RemoveState();
 };
 

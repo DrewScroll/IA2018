@@ -8,8 +8,8 @@ public:
   ~CEstado_Opciones();
 
   void onEnter();
-  void onUpdate();
+  void onUpdate(sf::Event* _event);
   void onExit();
-  void drawScreen(sf::RenderWindow* _window);
+  void drawScreen();
 };
 
