@@ -12,9 +12,9 @@ CEstado_Sonido::~CEstado_Sonido() {}
 
 void CEstado_Sonido::onEnter() {}
 
-void CEstado_Sonido::onUpdate() {
-  if (m_Event->KeyPressed == sf::Keyboard::Escape) {
-    m_pStateMachine->PopState();
+void CEstado_Sonido::onUpdate(sf::Event* _event) {
+  if (_event->KeyPressed == sf::Keyboard::Escape) {
+    m_pStateMachine->RemoveState();
   }
 }
 
