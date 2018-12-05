@@ -35,7 +35,7 @@ public:
   void Init(sf::RenderWindow* _window);
   void Update(sf::Event* _event);
   void Render();
-  void SetState(STATES newState);
+  virtual void SetState(STATES newState);
   void AddState(STATES newState);
   void RemoveState();
 };

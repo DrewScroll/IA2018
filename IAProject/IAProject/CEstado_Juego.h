@@ -7,9 +7,9 @@ public:
   CEstado_Juego();
   ~CEstado_Juego();
 
-  void onEnter();
-  void onUpdate(sf::Event* _event);
-  void onExit();
+  virtual void onEnter();
+  virtual void onUpdate(sf::Event* _event);
+  virtual void onExit();
   void drawScreen();
 };
 

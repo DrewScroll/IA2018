@@ -2,7 +2,9 @@
 #include "CUnit.h"
 
 
-CUnit::CUnit() {}
-
+CUnit::CUnit(int TypeID, int PlayerID) {
+  iID_Type = TypeID;
+  iID_Player = PlayerID;
+}
 
 CUnit::~CUnit() {}

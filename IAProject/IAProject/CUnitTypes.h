@@ -1,13 +1,21 @@
 #pragma once
+
+#include <nlohmann/json.hpp>
+
+// for convenience
+using json = nlohmann::json;
+
 class CUnitTypes
 {
 public:
-  CUnitTypes();
+  CUnitTypes(int iTypeID);
   ~CUnitTypes();
 
-  int iId;
-  float fVel_max;
-  float fHP_max;
-
+  int m_ID;
+  std::string m_Name;
+  float m_fVel_max;
+  float m_fHP_max;
+  //std::map <UNIT_STATE, CEstado*> m_unitStateMap;
+  
 };
 

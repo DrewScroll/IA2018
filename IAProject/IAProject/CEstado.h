@@ -7,7 +7,7 @@ class CEstado
 {
 public:
   CEstado();
-  ~CEstado();
+  virtual ~CEstado();
 
   virtual void onEnter() = 0;
   virtual void onUpdate(sf::Event* _event) = 0;

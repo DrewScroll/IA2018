@@ -101,7 +101,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(DEVLIBS)lua-5.3.5\include;$(DEVLIBS)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DEVLIBS)lua-5.3.5\include;$(DEVLIBS)SFML\include;$(DEVLIBS)json-develop\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -119,7 +119,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(DEVLIBS)lua-5.3.5\include;$(DEVLIBS)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DEVLIBS)lua-5.3.5\include;$(DEVLIBS)SFML\include;$(DEVLIBS)json-develop\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +139,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(DEVLIBS)lua-5.3.5\include;$(DEVLIBS)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DEVLIBS)lua-5.3.5\include;$(DEVLIBS)SFML\include;$(DEVLIBS)json-develop\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,7 +161,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(DEVLIBS)lua-5.3.5\include;$(DEVLIBS)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DEVLIBS)lua-5.3.5\include;$(DEVLIBS)SFML\include;$(DEVLIBS)json-develop\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -173,6 +173,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CUnitDeadState.h" />
     <ClInclude Include="CEstado.h" />
     <ClInclude Include="CEstado_Ayuda.h" />
     <ClInclude Include="CEstado_GameOver.h" />
@@ -187,11 +188,16 @@
     <ClInclude Include="CMaquinaEstados.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CUnit.h" />
+    <ClInclude Include="CUnitIdleState.h" />
+    <ClInclude Include="CUnitRunState.h" />
+    <ClInclude Include="CUnitStateMachine.h" />
     <ClInclude Include="CUnitTypes.h" />
     <ClInclude Include="CWorld.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="CUnitAttackState.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CUnitDeadState.cpp" />
     <ClCompile Include="CEstado.cpp" />
     <ClCompile Include="CEstado_Ayuda.cpp" />
     <ClCompile Include="CEstado_GameOver.cpp" />
@@ -206,6 +212,9 @@
     <ClCompile Include="CMaquinaEstados.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CUnit.cpp" />
+    <ClCompile Include="CUnitIdleState.cpp" />
+    <ClCompile Include="CUnitRunState.cpp" />
+    <ClCompile Include="CUnitStateMachine.cpp" />
     <ClCompile Include="CUnitTypes.cpp" />
     <ClCompile Include="CWorld.cpp" />
     <ClCompile Include="IAProject.cpp" />
@@ -215,6 +224,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="CUnitAttackState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test.lua" />
